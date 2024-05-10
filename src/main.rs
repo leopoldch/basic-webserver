@@ -1,6 +1,9 @@
 use std::{
+    process::Command,
     io::{prelude::*, BufReader},
     net::{TcpListener, TcpStream},
+    thread,
+    time::Duration,
 };
 
 use typed_html::{
@@ -17,7 +20,6 @@ fn main() {
         let stream = stream.unwrap();
         handle_connection(stream);
     }
-
 }
 
 fn handle_connection(mut stream: TcpStream) {
@@ -25,41 +27,81 @@ fn handle_connection(mut stream: TcpStream) {
 
     let request_line: String = buf_reader.lines().next().unwrap().unwrap();
 
-    let (status_line, contents) = if request_line == "GET / HTTP/1.1" {
-        let doc: DOMTree<String> = html!(
-            <html>
-                <head>
-                    <title>"Hello"</title>
-                    <meta name=Metadata::Author />
-                </head>
-                <body>
-                    <h1>"Hello from Rust"</h1>
-                    <p >
-                        "Hello !"
-                    </p>
-                </body>
-            </html>
-        );
-        let hello = doc.to_string();
+
+    
+    let (status_line, contents) = match &request_line[..] {
+        "GET / HTTP/1.1" => {
+            let doc: DOMTree<String> = html!(
+                <html>
+                    <head>
+                        <title>"Hello!"</title>
+                        <meta name=Metadata::Author />
+                    </head>
+                    <body>
+                        <h1>"Hello from Rust !"</h1>
+                        <p >
+                            "Page served using Rust"
+                        </p>
+                    </body>
+                </html>
+            );
+            let hello = doc.to_string();
             ("HTTP/1.1 200 OK", hello)
-    } else {
-        let doc: DOMTree<String> = html!(
-            <html>
-                <head>
-                    <title>"Unauthorized"</title>
-                    <meta name=Metadata::Author/>
-                </head>
-                <body>
-                    <h1>"UNAUTHORIZED"</h1>
-                    <p>
-                        "401 - UNAUTHORIZED"
-                    </p>
-                </body>
-            </html>
-        );
-        let response = doc.to_string();
-        ("HTTP/1.1 401 UNAUTHORIZED", response)
+        },
+        "GET /sleep HTTP/1.1" => {
+            thread::sleep(Duration::from_secs(5));
+            let doc: DOMTree<String> = html!(
+                <html>
+                    <head>
+                        <title>"Sleep"</title>
+                        <meta name=Metadata::Author />
+                    </head>
+                    <body>
+                        <h1>"Sleeping"</h1>
+                        <p >
+                            "Sleep !"
+                        </p>
+                    </body>
+                </html>
+            );
+            let sleep = doc.to_string();
+            ("HTTP/1.1 200 OK", sleep)
+        }
+
+        "GET /v1 HTTP/1.1" => {
+            
+            // demande à php de éxécuter la page et prendre ce qui est interprété
+            let output = Command::new("php")
+                .arg("index.php")
+                .output()
+                .expect("Failed to execute PHP script");
+
+            let php_response = String::from_utf8_lossy(&output.stdout).to_string();
+            ("HTTP/1.1 200 OK", php_response)
+        }
+
+        _ => {
+
+            let doc: DOMTree<String> = html!(
+                <html>
+                    <head>
+                        <title>"NOT FOUND"</title>
+                        <meta name=Metadata::Author/>
+                    </head>
+                    <body>
+                        <h1>"NOT FOUND"</h1>
+                        <p>
+                            "404 - NOT FOUND"
+                        </p>
+                    </body>
+                </html>
+            );
+            let response = doc.to_string();
+            ("HTTP/1.1 404 NOT FOUND", response)
+        
+        },
     };
+
 
     let length = contents.len();
 
