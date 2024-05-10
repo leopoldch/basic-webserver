@@ -1,9 +1,10 @@
 use std::{
-    process::Command,
-    io::{prelude::*, BufReader},
-    net::{TcpListener, TcpStream},
-    thread,
-    time::Duration,
+    io::{prelude::*, BufReader,ErrorKind}, 
+    net::{TcpListener, TcpStream}, 
+    process::Command, 
+    thread, 
+    process,
+    time::Duration
 };
 
 use typed_html::{
@@ -13,7 +14,26 @@ use typed_html::{
 };
 
 
+fn check_php(){
+    match Command::new("php").spawn() {
+        Ok(_) => println!("Php is installed \n"),
+        Err(e) => {
+            if let ErrorKind::NotFound = e.kind() {
+                println!("Php was not found!")
+            } else {
+                println!("Unknown Error");
+            }
+            // ferme le programme 
+            process::exit(0x0100);
+        }, 
+    }
+}
+    
+
 fn main() {
+    
+    check_php();
+    
     let listener = TcpListener::bind("127.0.0.1:3000").unwrap();
 
     for stream in listener.incoming() {
@@ -27,8 +47,6 @@ fn handle_connection(mut stream: TcpStream) {
 
     let request_line: String = buf_reader.lines().next().unwrap().unwrap();
 
-
-    
     let (status_line, contents) = match &request_line[..] {
         "GET / HTTP/1.1" => {
             let doc: DOMTree<String> = html!(
@@ -71,6 +89,7 @@ fn handle_connection(mut stream: TcpStream) {
         "GET /v1 HTTP/1.1" => {
             
             // demande à php de éxécuter la page et prendre ce qui est interprété
+
             let output = Command::new("php")
                 .arg("index.php")
                 .output()
