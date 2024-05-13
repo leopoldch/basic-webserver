@@ -1,10 +1,5 @@
 use std::{
-    io::{prelude::*, BufReader,ErrorKind}, 
-    net::{TcpListener, TcpStream}, 
-    process::Command, 
-    thread, 
-    process,
-    time::Duration
+    env, io::{prelude::*, BufReader,ErrorKind}, net::{TcpListener, TcpStream}, process::{self, Command}, thread, time::Duration
 };
 
 use typed_html::{
@@ -12,7 +7,6 @@ use typed_html::{
     dom::DOMTree,
     types::Metadata,
 };
-
 
 fn check_php(){
     match Command::new("php").spawn() {
@@ -43,9 +37,44 @@ fn main() {
 }
 
 fn handle_connection(mut stream: TcpStream) {
-    let buf_reader = BufReader::new(&mut stream);
 
-    let request_line: String = buf_reader.lines().next().unwrap().unwrap();
+    let buf_reader: BufReader<&mut TcpStream> = BufReader::new(&mut stream);
+
+    let mut http_request: Vec<String> = vec![];
+    let mut post_request = false; 
+    
+    for line in buf_reader.lines() {
+        let val = line.unwrap();
+    
+        if val.contains("POST") {
+            println!("Reading a POST request\n");
+            //post_request = true;
+        }
+        if !val.is_empty() {
+            http_request.push(val)
+        }else if post_request{
+            if val.contains("nom") {
+                http_request.push(val);
+                break;
+            }
+        }else{
+            break;
+        }
+        
+    }
+    let request_line = &http_request[0];
+    /*let mut name: &String;
+    if post_request {
+        name = &http_request[http_request.len()-1]
+    }else{
+        name = &"None".to_owned();
+    }*/
+
+    println!("Request: {:#?}", http_request);
+
+
+    
+    
 
     let (status_line, contents) = match &request_line[..] {
         "GET / HTTP/1.1" => {
@@ -89,14 +118,70 @@ fn handle_connection(mut stream: TcpStream) {
         "GET /v1 HTTP/1.1" => {
             
             // demande à php de éxécuter la page et prendre ce qui est interprété
+            env::set_var("REQUEST_METHOD", "GET");
+            env::set_var("SCRIPT_FILENAME", "index.php");
+            env::set_var("REDIRECT_STATUS", "CGI");
+            env::set_var("CONTENT_TYPE", "application/www-form-urlencoded");
 
-            let output = Command::new("php")
-                .arg("index.php")
+            let output = Command::new("php-cgi")
                 .output()
                 .expect("Failed to execute PHP script");
 
             let php_response = String::from_utf8_lossy(&output.stdout).to_string();
-            ("HTTP/1.1 200 OK", php_response)
+            let lines = php_response.lines();
+            let mut response = String::new();
+            let mut verif = 0;
+            for line in lines {
+                if verif == 1{
+                    response.push_str(line);
+                    response.push_str("\n");
+                }
+                if line.starts_with("Content-type: text/html; charset=UTF-8") {
+                    verif = 1;
+                }
+            }
+            ("HTTP/1.1 200 OK", response)
+        }
+
+        "POST /v1 HTTP/1.1" => {
+
+
+            env::set_var("REQUEST_METHOD", "POST");
+            env::set_var("SCRIPT_FILENAME", "index.php");
+            env::set_var("REDIRECT_STATUS", "CGI");
+            env::set_var("CONTENT_TYPE", "application/www-form-urlencoded");
+
+
+            let mut command_str: String = "echo 'nom=".to_owned();
+            command_str.push_str("julien"); // nom récupéré 
+            command_str.push_str("' | php-cgi");
+            println!("{:}", command_str);
+
+            let output = Command::new("sh")
+               .arg("-c")
+               .arg(command_str)
+               .output()
+               .expect("Failed to execute command");
+
+            let php_response = String::from_utf8_lossy(&output.stdout).to_string();
+            let lines = php_response.lines();
+            let mut response = String::new();
+            let mut verif = 0;
+
+            for line in lines {
+                if verif == 1{
+                    if !line.contains("Warning"){
+                        response.push_str(line);
+                        response.push_str("\n");
+                    }
+                }
+                if line.starts_with("Content-type: text/html; charset=UTF-8") {
+                    verif = 1;
+                }
+            }
+
+            ("HTTP/1.1 200 OK", response)
+        
         }
 
         _ => {
@@ -128,5 +213,7 @@ fn handle_connection(mut stream: TcpStream) {
         format!("{status_line}\r\nContent-Length: {length}\r\n\r\n{contents}");
 
     stream.write_all(response.as_bytes()).unwrap();
+
+
 }
 
