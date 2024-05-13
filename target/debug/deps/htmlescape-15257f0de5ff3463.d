@@ -1,0 +1,11 @@
+/Users/leo/Documents/UTC/SR06/TD_RUST/basic-webserver/target/debug/deps/libhtmlescape-15257f0de5ff3463.rmeta: /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/htmlescape-0.3.1/src/lib.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/htmlescape-0.3.1/src/encode.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/htmlescape-0.3.1/src/decode.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/htmlescape-0.3.1/src/entities.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/htmlescape-0.3.1/src/io_support.rs
+
+/Users/leo/Documents/UTC/SR06/TD_RUST/basic-webserver/target/debug/deps/libhtmlescape-15257f0de5ff3463.rlib: /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/htmlescape-0.3.1/src/lib.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/htmlescape-0.3.1/src/encode.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/htmlescape-0.3.1/src/decode.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/htmlescape-0.3.1/src/entities.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/htmlescape-0.3.1/src/io_support.rs
+
+/Users/leo/Documents/UTC/SR06/TD_RUST/basic-webserver/target/debug/deps/htmlescape-15257f0de5ff3463.d: /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/htmlescape-0.3.1/src/lib.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/htmlescape-0.3.1/src/encode.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/htmlescape-0.3.1/src/decode.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/htmlescape-0.3.1/src/entities.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/htmlescape-0.3.1/src/io_support.rs
+
+/Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/htmlescape-0.3.1/src/lib.rs:
+/Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/htmlescape-0.3.1/src/encode.rs:
+/Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/htmlescape-0.3.1/src/decode.rs:
+/Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/htmlescape-0.3.1/src/entities.rs:
+/Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/htmlescape-0.3.1/src/io_support.rs:

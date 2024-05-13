@@ -1,0 +1,12 @@
+/Users/leo/Documents/UTC/SR06/TD_RUST/basic-webserver/target/debug/deps/libordermap-c33489538fa14f17.rmeta: /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/lib.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/macros.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/util.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/equivalent.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/mutable_keys.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/set.rs
+
+/Users/leo/Documents/UTC/SR06/TD_RUST/basic-webserver/target/debug/deps/libordermap-c33489538fa14f17.rlib: /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/lib.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/macros.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/util.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/equivalent.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/mutable_keys.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/set.rs
+
+/Users/leo/Documents/UTC/SR06/TD_RUST/basic-webserver/target/debug/deps/ordermap-c33489538fa14f17.d: /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/lib.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/macros.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/util.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/equivalent.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/mutable_keys.rs /Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/set.rs
+
+/Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/lib.rs:
+/Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/macros.rs:
+/Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/util.rs:
+/Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/equivalent.rs:
+/Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/mutable_keys.rs:
+/Users/leo/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ordermap-0.3.5/src/set.rs:
