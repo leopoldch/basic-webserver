@@ -28,7 +28,7 @@ fn main() {
     
     check_php();
     
-    let listener = TcpListener::bind("127.0.0.1:3000").unwrap();
+    let listener = TcpListener::bind("0.0.0.0:3000").unwrap();
 
     for stream in listener.incoming() {
         let stream = stream.unwrap();
