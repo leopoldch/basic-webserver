@@ -16,8 +16,8 @@ use typed_html::{
 
 fn main() {
         
-    let listener = TcpListener::bind("127.0.0.1:8081").unwrap();
-    println!("Server started on addr 127.0.0.1:8081");
+    let listener = TcpListener::bind("0.0.0.0:3000").unwrap();
+    println!("Server started on addr 0.0.0.0:3000");
     for stream in listener.incoming() {
         let stream = stream.unwrap();
         handle_connection(stream);
